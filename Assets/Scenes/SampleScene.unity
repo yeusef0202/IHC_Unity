@@ -1559,9 +1559,9 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 522431907}
+      - m_Target: {fileID: 1382056294}
         m_TargetAssemblyTypeName: Hide, Assembly-CSharp
-        m_MethodName: Show_or_Hide
+        m_MethodName: Activate_or_Deactivate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1571,9 +1571,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1382056294}
+      - m_Target: {fileID: 522431907}
         m_TargetAssemblyTypeName: Hide, Assembly-CSharp
-        m_MethodName: Activate_or_Deactivate
+        m_MethodName: Show_or_Hide
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2026,7 +2026,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &620975293
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3185,6 +3185,10 @@ PrefabInstance:
     - target: {fileID: 146120, guid: c4e389e44d96da64ea974ab237ce1a9a, type: 3}
       propertyPath: m_Name
       value: NonNativeKeyboard
+      objectReference: {fileID: 0}
+    - target: {fileID: 146120, guid: c4e389e44d96da64ea974ab237ce1a9a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11401954, guid: c4e389e44d96da64ea974ab237ce1a9a, type: 3}
       propertyPath: InputField
@@ -4470,12 +4474,12 @@ GameObject:
   - component: {fileID: 1382056292}
   - component: {fileID: 1382056291}
   - component: {fileID: 1382056290}
-  - component: {fileID: 1382056289}
   - component: {fileID: 1382056288}
+  - component: {fileID: 1382056297}
   - component: {fileID: 1382056287}
   - component: {fileID: 1382056294}
+  - component: {fileID: 1382056289}
   - component: {fileID: 1382056296}
-  - component: {fileID: 1382056297}
   m_Layer: 0
   m_Name: Hitbox
   m_TagString: Untagged
@@ -4796,7 +4800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ecdf2432770b9a46ae95b890921e912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_plane: {fileID: 1475233592}
+  m_plane: {fileID: 1804149522}
 --- !u!114 &1382056296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4930,7 +4934,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1382056286}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87996e81a5026dc429bfd6a9271548b6, type: 3}
   m_Name: 
@@ -4958,7 +4962,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1475233593
 Transform:
   m_ObjectHideFlags: 0
@@ -5616,7 +5620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1804149524
 MonoBehaviour:
   m_ObjectHideFlags: 0

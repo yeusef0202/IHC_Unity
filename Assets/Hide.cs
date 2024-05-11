@@ -32,7 +32,7 @@ public class Hide : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_plane.SetActive(true);
+        m_plane.SetActive(false);
         is_active = false;
         simple_grab= true;      //True = simple; False = grab
         //coisa.GetComponet<>
@@ -41,8 +41,12 @@ public class Hide : MonoBehaviour
 
         //To deactivate and activate 
         snapVolumeComponents = GetComponents<XRInteractableSnapVolume>();
-        snapSimple = snapVolumeComponents[0];
-        snapGrab = snapVolumeComponents[1];
+        if(snapVolumeComponents.Length == 2)
+        {
+            snapSimple = snapVolumeComponents[0];
+            snapGrab = snapVolumeComponents[1];
+        }
+        
 
         //Controller stuff
         //var inputDevices = new List<UnityEngine.XR.InputDevice>();
