@@ -21,8 +21,11 @@ public class key_pressed : MonoBehaviour
 
 
     public PrimaryButtonEvent primaryButtonPress;
+    public PrimaryButtonEvent yButtonPress;
 
-    private bool lastButtonState = false;
+
+    private bool lastButtonState = false;       
+    private bool lastYButtonState = false; // Declare the variable lastYButtonState
     private List<InputDevice> devicesWithPrimaryButton;
 
 
@@ -32,6 +35,11 @@ public class key_pressed : MonoBehaviour
         if (primaryButtonPress == null)
         {
             primaryButtonPress = new PrimaryButtonEvent();
+        }
+
+        if (yButtonPress == null)
+        {
+            yButtonPress = new PrimaryButtonEvent();
         }
 
         devicesWithPrimaryButton = new List<InputDevice>();
@@ -77,22 +85,50 @@ public class key_pressed : MonoBehaviour
     private bool pressed = false;
 
     // Update is called once per frame
+    // void Update()
+    // {
+    //     bool tempState = false;
+    //     foreach (var device in devicesWithPrimaryButton)
+    //     {
+    //         bool primaryButtonState = false;
+    //         tempState = device.TryGetFeatureValue(CommonUsages.primaryButton, out primaryButtonState) // did get a value
+    //                     && primaryButtonState // the value we got
+    //                     || tempState; // cumulative result from other controllers
+    //     }
+
+    //     //if (tempState != lastButtonState) // Button state changed since last frame
+    //     //{
+    //     //    primaryButtonPress.Invoke(tempState);
+    //     //    lastButtonState = tempState;
+    //     //}
+
+    //     if (tempState && !lastButtonState) // Button pressed and wasn't pressed last frame
+    //     {
+    //         primaryButtonPress.Invoke(pressed);
+    //         pressed = !pressed;
+    //     }
+
+    //     lastButtonState = tempState;
+
+    // }
+
     void Update()
     {
         bool tempState = false;
+        bool tempYButtonState = false;
         foreach (var device in devicesWithPrimaryButton)
         {
             bool primaryButtonState = false;
+            bool yButtonState = false;
             tempState = device.TryGetFeatureValue(CommonUsages.primaryButton, out primaryButtonState) // did get a value
                         && primaryButtonState // the value we got
                         || tempState; // cumulative result from other controllers
+
+            tempYButtonState = device.TryGetFeatureValue(CommonUsages.secondaryButton, out yButtonState) // did get a value
+                        && yButtonState // the value we got
+                        || tempYButtonState; // cumulative result from other controllers
         }
 
-        //if (tempState != lastButtonState) // Button state changed since last frame
-        //{
-        //    primaryButtonPress.Invoke(tempState);
-        //    lastButtonState = tempState;
-        //}
 
         if (tempState && !lastButtonState) // Button pressed and wasn't pressed last frame
         {
@@ -100,11 +136,16 @@ public class key_pressed : MonoBehaviour
             pressed = !pressed;
         }
 
+        if (tempYButtonState && !lastYButtonState) // Y Button pressed and wasn't pressed last frame
+        {
+            // Invoke your Y button event here
+            yButtonPress.Invoke(pressed);
+            pressed = !pressed;
+        }
+
         lastButtonState = tempState;
-
+        lastYButtonState = tempYButtonState;
     }
-
-   
 
 
 }

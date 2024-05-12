@@ -25,7 +25,7 @@ public class Hide : MonoBehaviour
     private bool simple_grab;
 
     //Controller 
-   
+
 
 
 
@@ -34,19 +34,19 @@ public class Hide : MonoBehaviour
     {
         m_plane.SetActive(false);
         is_active = false;
-        simple_grab= true;      //True = simple; False = grab
+        simple_grab = true;      //True = simple; False = grab
         //coisa.GetComponet<>
         //coisa.enabled = !coisa.enabled;
         //= GetComponent<InputHelpers.Button>();
 
         //To deactivate and activate 
         snapVolumeComponents = GetComponents<XRInteractableSnapVolume>();
-        if(snapVolumeComponents.Length == 2)
+        if (snapVolumeComponents.Length == 2)
         {
             snapSimple = snapVolumeComponents[0];
             snapGrab = snapVolumeComponents[1];
         }
-        
+
 
         //Controller stuff
         //var inputDevices = new List<UnityEngine.XR.InputDevice>();
@@ -57,7 +57,7 @@ public class Hide : MonoBehaviour
         //    Debug.Log(string.Format("Device found with name '{0}' and role '{1}'", device.name, device.role.ToString()));
         //}
 
-      
+
 
 
     }
@@ -67,22 +67,37 @@ public class Hide : MonoBehaviour
 
         m_plane.SetActive(!m_plane.activeSelf);
 
-        //if (is_active)
-        //{
-        //    m_plane.SetActive(false);
-        //    is_active = false;
-        //    
-        //}
-        //else
-        //{
-        //    m_plane.SetActive(true);
-        //    is_active = true;
-        //    //eak;
-        //} 
-        
     }
 
-    public void Activate_or_Deactivate() 
+    public void Show_or_Hide_Login()
+    {
+        Debug.Log(PlayerPrefs.GetInt("IsLogedIn", 0 ));
+        GameObject loginButton = m_plane.transform.Find("Login_Button").gameObject;
+        GameObject logoutButton = m_plane.transform.Find("LogOut_Button").gameObject;
+        GameObject canvas = m_plane.transform.Find("Canvas").gameObject;
+        GameObject keyboard = m_plane.transform.Find("NonNativeKeyboard").gameObject;
+        if (PlayerPrefs.GetInt("IsLogedIn", 0 ) == 0)
+        {
+            m_plane.SetActive(!m_plane.activeSelf);
+
+            loginButton.SetActive(true);
+            logoutButton.SetActive(false);
+            canvas.SetActive(true);
+            keyboard.SetActive(false);
+
+        }
+        else
+        {
+            m_plane.SetActive(!m_plane.activeSelf);
+            // Hide the login button and show the logout button
+            loginButton.SetActive(false);
+            logoutButton.SetActive(true);
+            canvas.SetActive(false);
+            keyboard.SetActive(false);
+        }
+    }
+
+    public void Activate_or_Deactivate()
     {
         if (simple_grab)
         {
@@ -92,7 +107,7 @@ public class Hide : MonoBehaviour
             snapSimple.enabled = true;
             simple_grab = false;
         }
-        else 
+        else
         {
             //Activate Grab
             snapGrab.enabled = false;
@@ -102,6 +117,6 @@ public class Hide : MonoBehaviour
         }
 
     }
-    
+
 
 }
