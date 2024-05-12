@@ -16,6 +16,8 @@ public class Hide : MonoBehaviour
     [Tooltip("GameObject To Show or Hide")]
     GameObject m_plane;
 
+    public GameObject keyboard;
+
     private bool is_active;
     private XRBaseInteractor interactor;
     //public Component coisa;
@@ -23,6 +25,7 @@ public class Hide : MonoBehaviour
     private XRInteractableSnapVolume snapSimple;
     private XRInteractableSnapVolume snapGrab;
     private bool simple_grab;
+
 
     //Controller 
 
@@ -75,7 +78,6 @@ public class Hide : MonoBehaviour
         GameObject loginButton = m_plane.transform.Find("Login_Button").gameObject;
         GameObject logoutButton = m_plane.transform.Find("LogOut_Button").gameObject;
         GameObject canvas = m_plane.transform.Find("Canvas").gameObject;
-        GameObject keyboard = m_plane.transform.Find("NonNativeKeyboard").gameObject;
         if (PlayerPrefs.GetInt("IsLogedIn", 0 ) == 0)
         {
             m_plane.SetActive(!m_plane.activeSelf);
