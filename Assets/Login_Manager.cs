@@ -30,7 +30,7 @@ public class Login_Manager : MonoBehaviour
         string username = usernameInput.GetComponent<TMPro.TMP_InputField>().text;
         string password = passwordInput.GetComponent<TMPro.TMP_InputField>().text;
 
-        if ((username == "admin" && password == "admin") | true)
+        if ((username == "admin" && password == "admin"))
         {
             //Debug.Log("Login successful!");
             // Perform actions after successful login, like loading the main game scene
