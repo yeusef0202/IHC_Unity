@@ -84,33 +84,7 @@ public class key_pressed : MonoBehaviour
 
     private bool pressed = false;
 
-    // Update is called once per frame
-    // void Update()
-    // {
-    //     bool tempState = false;
-    //     foreach (var device in devicesWithPrimaryButton)
-    //     {
-    //         bool primaryButtonState = false;
-    //         tempState = device.TryGetFeatureValue(CommonUsages.primaryButton, out primaryButtonState) // did get a value
-    //                     && primaryButtonState // the value we got
-    //                     || tempState; // cumulative result from other controllers
-    //     }
 
-    //     //if (tempState != lastButtonState) // Button state changed since last frame
-    //     //{
-    //     //    primaryButtonPress.Invoke(tempState);
-    //     //    lastButtonState = tempState;
-    //     //}
-
-    //     if (tempState && !lastButtonState) // Button pressed and wasn't pressed last frame
-    //     {
-    //         primaryButtonPress.Invoke(pressed);
-    //         pressed = !pressed;
-    //     }
-
-    //     lastButtonState = tempState;
-
-    // }
 
     void Update()
     {

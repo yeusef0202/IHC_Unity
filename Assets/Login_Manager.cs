@@ -20,12 +20,6 @@ public class Login_Manager : MonoBehaviour
 
     void Start()
     {
-        PlayerPrefs.SetInt("IsLogedIn", 0);
-    }
-
-    public bool IsLogedIn
-    {
-        get { return PlayerPrefs.GetInt("IsLogedIn", 0) == 1; }
     }
 
     public void OnLoginButtonClicked()
@@ -41,10 +35,9 @@ public class Login_Manager : MonoBehaviour
             //Debug.Log("Login successful!");
             // Perform actions after successful login, like loading the main game scene
             m_plane.SetActive(!m_plane.activeSelf);
-            //Debug.Log(Activate.GetComponentAtIndex(1));
             PlayerPrefs.SetInt("IsLogedIn", 1);
-            // Debug.Log("Logged In:");
-            // Debug.Log(PlayerPrefs.GetInt("IsLogedIn"));
+            Debug.Log("Logged In:");
+            Debug.Log(PlayerPrefs.GetInt("IsLogedIn"));
             Activate.GetComponent<Activate>().Activate_or_Deactivate();
             
         }
@@ -52,7 +45,7 @@ public class Login_Manager : MonoBehaviour
         {
             Debug.Log("Login failed. Invalid username or password.");
             // Display error message to the user
-            PlayerPrefs.SetInt("IsLogedIn", 0);
+            // PlayerPrefs.SetInt("IsLogedIn", 0);
 
         }
     }

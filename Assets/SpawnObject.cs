@@ -14,11 +14,12 @@ public class SpawnObject : MonoBehaviour
     void Start()
     {
         // Set mainCamera to the main camera in the scene
+        PlayerPrefs.DeleteAll();
         mainCamera = Camera.main;
     }
     public void Spawn()
     {
-        if (PlayerPrefs.GetInt("IsLogedIn", 0) == 1)
+        if (PlayerPrefs.GetInt("IsLogedIn") == 1)
         {
             GameObject spawnedObject = Instantiate(myObject);
             spawnedObject.transform.SetParent(parentObject.transform);

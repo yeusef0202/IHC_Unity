@@ -28,11 +28,11 @@ public class Activate : MonoBehaviour
 
             if(i%2 == 0){
                 Debug.Log(allComponents[i]);
-                snapSimple[j] = allComponents[i];
+                snapGrab[j] = allComponents[i];
                 j++;
             }else{
                 Debug.Log(allComponents[i]);
-                snapGrab[k] = allComponents[i];
+                snapSimple[k] = allComponents[i];
                 k++;
             }
 
@@ -44,26 +44,35 @@ public class Activate : MonoBehaviour
     public void Activate_or_Deactivate() 
     {
         Start();
-        if (simple_grab)
-        {
-            //Activate Simple
-            for(int i = 0; i<snapGrab.Length; i++){
-                snapGrab[i].enabled = false;
-                snapSimple[i].enabled = false;
-                snapSimple[i].enabled = true;
-                simple_grab = false;
-            }
-            
-        }
-        else 
+        if (PlayerPrefs.GetInt("IsLogedIn") == 1)
         {
             //Activate Grab
+            Debug.Log("Grab");
             for(int i = 0; i<snapGrab.Length; i++){
+                if(snapGrab[i] == null){
+                    break;
+                }
                 snapGrab[i].enabled = false;
                 snapSimple[i].enabled = false;
                 snapGrab[i].enabled = true;
-                simple_grab = true;
+                // Debug.Log(snapGrab[i].gameObject);
+                // Debug.Log("Enabled");
             }
+        }
+        else 
+        {
+            //Activate Simple
+            Debug.Log("Simple");
+            for(int i = 0; i<snapGrab.Length; i++){
+                if(snapGrab[i] == null){
+                    break;
+                }
+                snapGrab[i].enabled = false;
+                snapSimple[i].enabled = false;
+                snapSimple[i].enabled = true;
+
+            }
+            
         }
 
     }

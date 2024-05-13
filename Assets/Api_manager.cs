@@ -21,8 +21,12 @@ public class Api_manager : MonoBehaviour
 
     private Root root;
     // Start is called before the first frame update
+    
+    //Image Control
+    
     void Start()
     {
+
         StartCoroutine(GetRequest("https://ihc.rui2015.me/api/items"));
 
 
@@ -36,17 +40,6 @@ public class Api_manager : MonoBehaviour
                 allIDGameObjects[i++] = child.Find("API_ID").Find("ID").gameObject;
             }
         }
-        // 
-        // for (int k = 0; k < i; k++)
-        // {
-        //     Debug.Log(((TMPro.TMP_InputField)allcomponents[k]).text);
-        // }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void UpdateComponents()
@@ -61,21 +54,11 @@ public class Api_manager : MonoBehaviour
         // Rerun to see if new things have appeared
         Start();
 
-        Debug.Log(root.objects.Count);
+        // Debug.Log(root.objects.Count);
         for( int i = 0; i < root.objects.Count; i++){
             foreach (GameObject go in allIDGameObjects){
-                if(go != null){
-                    Debug.Log(go.name);
-                }
                 if (go!=null && go.GetComponent<TMPro.TMP_InputField>().text == root.objects[i].id){
-                    Debug.Log(go.GetComponent<TMPro.TMP_InputField>().text);
-                    Debug.Log(go.transform.parent.name);
-                    Debug.Log(go.transform.parent.parent.name);
-                    Debug.Log("-----------------------------------");
-                    Debug.Log(go.transform.parent.parent.Find("--DescriptionMenu"));
-                    //go.transform.parent.parent.Find("--DesriptionMenu").Find("--TextDescription").GetComponent<TextMeshProUGUI>().text = root.objects[i].description;
                     Update_all_components_of_a_gameobject(go,i);
-                    Debug.Log("CHANGED");
                 }
             }
 
@@ -88,14 +71,65 @@ public class Api_manager : MonoBehaviour
         go.transform.parent.parent.Find("--DesriptionMenu").Find("--TextDescription").GetComponent<TextMeshProUGUI>().text = root.objects[index].description;
         //go.transform.parent.parent.Find("--ImagesMenu").Find("--Image1").GetComponent<RawImage>().texture = root.objects[index].images[0];
         StartCoroutine(LoadImageFromURL(root.objects[index].images[0], go.transform.parent.parent.Find("--ImagesMenu").Find("--Image1").GetComponent<RawImage>()));
-        LoadVideoFromURL(root.objects[index].videos[0], go.transform.parent.parent.Find("--VideosMenu").Find("Player").Find("Content").Find("Video Player").GetComponent<VideoPlayer>());
+        if(root.objects[index].videos.Count > 0){
+            root.objects[index].Image_index = 0;
+            go.transform.parent.parent.Find("--VideosMenu").Find("Player").gameObject.SetActive(true);
+            LoadVideoFromURL(root.objects[index].videos[0], go.transform.parent.parent.Find("--VideosMenu").Find("Player").Find("Content").Find("Video Player").GetComponent<VideoPlayer>());
+        }else{
+            go.transform.parent.parent.Find("--VideosMenu").Find("Player").gameObject.SetActive(false);
+        }
     }
+
+    public void NextVideo(){
+        Debug.Log(root.objects[1].Video_index);
+        for( int i = 0; i < root.objects.Count; i++){
+            foreach (GameObject go in allIDGameObjects){
+                if (go!=null && go.GetComponent<TMPro.TMP_InputField>().text == root.objects[i].id && root.objects[i].Video_index < root.objects[i].videos.Count-1){
+                    LoadVideoFromURL(root.objects[i].videos[++root.objects[i].Video_index], go.transform.parent.parent.Find("--VideosMenu").Find("Player").Find("Content").Find("Video Player").GetComponent<VideoPlayer>());
+                }
+            }
+        }
+    }
+
+    public void PreviousVideo(){
+        Debug.Log(root.objects[1].Video_index);
+        for( int i = 0; i < root.objects.Count; i++){
+            foreach (GameObject go in allIDGameObjects){
+                if (go!=null && go.GetComponent<TMPro.TMP_InputField>().text == root.objects[i].id && root.objects[i].Video_index > 0){
+                    LoadVideoFromURL(root.objects[i].videos[--root.objects[i].Video_index], go.transform.parent.parent.Find("--VideosMenu").Find("Player").Find("Content").Find("Video Player").GetComponent<VideoPlayer>());
+                }
+            }
+        }
+    }
+
 
     void LoadVideoFromURL(string url, VideoPlayer videoPlayer)
     {
         videoPlayer.source = VideoSource.Url;
         videoPlayer.url = url;
         videoPlayer.Play();
+    }
+
+    public void NextImage(){
+        Debug.Log(root.objects[1].Image_index);
+        for( int i = 0; i < root.objects.Count; i++){
+            foreach (GameObject go in allIDGameObjects){
+                if (go!=null && go.GetComponent<TMPro.TMP_InputField>().text == root.objects[i].id && root.objects[i].Image_index < root.objects[i].images.Count-1){
+                    StartCoroutine(LoadImageFromURL(root.objects[i].images[++root.objects[i].Image_index], go.transform.parent.parent.Find("--ImagesMenu").Find("--Image1").GetComponent<RawImage>()));
+                }
+            }
+        }
+    }
+
+    public void PreviousImage(){
+        Debug.Log(root.objects[1].Image_index);
+        for( int i = 0; i < root.objects.Count; i++){
+            foreach (GameObject go in allIDGameObjects){                   
+                if (go!=null && go.GetComponent<TMPro.TMP_InputField>().text == root.objects[i].id && root.objects[i].Image_index > 0){
+                    StartCoroutine(LoadImageFromURL(root.objects[i].images[--root.objects[i].Image_index], go.transform.parent.parent.Find("--ImagesMenu").Find("--Image1").GetComponent<RawImage>()));
+                }
+            }
+        }
     }
 
     IEnumerator LoadImageFromURL(string url, RawImage rawImage)
@@ -147,6 +181,8 @@ public class Api_manager : MonoBehaviour
         public string description { get; set; }
         public List<string> images { get; set; }
         public List<string> videos { get; set; }
+        public int Image_index { get; set; }
+        public int Video_index { get; set; }
     }
 
     public class Root
