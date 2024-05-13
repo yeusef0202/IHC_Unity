@@ -7,6 +7,8 @@ using UnityEngine.Networking;
 using System;
 using UnityEditor.UI;
 using UnityEngine.Assertions.Must;
+using UnityEngine.UI;
+using UnityEngine.Video;
 
 
 
@@ -71,11 +73,47 @@ public class Api_manager : MonoBehaviour
                     Debug.Log(go.transform.parent.parent.name);
                     Debug.Log("-----------------------------------");
                     Debug.Log(go.transform.parent.parent.Find("--DescriptionMenu"));
-                    go.transform.parent.parent.Find("--DesriptionMenu").Find("--TextDescription").GetComponent<TextMeshProUGUI>().text = root.objects[i].description;
+                    //go.transform.parent.parent.Find("--DesriptionMenu").Find("--TextDescription").GetComponent<TextMeshProUGUI>().text = root.objects[i].description;
+                    Update_all_components_of_a_gameobject(go,i);
                     Debug.Log("CHANGED");
                 }
             }
 
+        }
+    }
+
+
+    private void Update_all_components_of_a_gameobject(GameObject go, int index)
+    {
+        go.transform.parent.parent.Find("--DesriptionMenu").Find("--TextDescription").GetComponent<TextMeshProUGUI>().text = root.objects[index].description;
+        //go.transform.parent.parent.Find("--ImagesMenu").Find("--Image1").GetComponent<RawImage>().texture = root.objects[index].images[0];
+        StartCoroutine(LoadImageFromURL(root.objects[index].images[0], go.transform.parent.parent.Find("--ImagesMenu").Find("--Image1").GetComponent<RawImage>()));
+        LoadVideoFromURL(root.objects[index].videos[0], go.transform.parent.parent.Find("--VideosMenu").Find("Player").Find("Content").Find("Video Player").GetComponent<VideoPlayer>());
+    }
+
+    void LoadVideoFromURL(string url, VideoPlayer videoPlayer)
+    {
+        videoPlayer.source = VideoSource.Url;
+        videoPlayer.url = url;
+        videoPlayer.Play();
+    }
+
+    IEnumerator LoadImageFromURL(string url, RawImage rawImage)
+    {
+        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(url))
+        {
+            yield return uwr.SendWebRequest();
+
+            if (uwr.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(uwr.error);
+            }
+            else
+            {
+                // Get downloaded asset bundle
+                var texture = DownloadHandlerTexture.GetContent(uwr);
+                rawImage.texture = texture;
+            }
         }
     }
 
