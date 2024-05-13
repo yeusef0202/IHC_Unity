@@ -30,8 +30,8 @@ public class Login_Manager : MonoBehaviour
 
     public void OnLoginButtonClicked()
     {
-        Debug.Log(usernameInput.GetComponentAtIndex(3));
-        Debug.Log(usernameInput.GetComponent<TMPro.TMP_InputField>());
+        // Debug.Log(usernameInput.GetComponentAtIndex(3));
+        // Debug.Log(usernameInput.GetComponent<TMPro.TMP_InputField>());
 
         string username = usernameInput.GetComponent<TMPro.TMP_InputField>().text;
         string password = passwordInput.GetComponent<TMPro.TMP_InputField>().text;
@@ -43,8 +43,8 @@ public class Login_Manager : MonoBehaviour
             m_plane.SetActive(!m_plane.activeSelf);
             //Debug.Log(Activate.GetComponentAtIndex(1));
             PlayerPrefs.SetInt("IsLogedIn", 1);
-            Debug.Log("Logged In:");
-            Debug.Log(PlayerPrefs.GetInt("IsLogedIn"));
+            // Debug.Log("Logged In:");
+            // Debug.Log(PlayerPrefs.GetInt("IsLogedIn"));
             Activate.GetComponent<Activate>().Activate_or_Deactivate();
             
         }

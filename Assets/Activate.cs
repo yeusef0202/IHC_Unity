@@ -23,7 +23,7 @@ public class Activate : MonoBehaviour
         allComponents = GetComponentsInChildren<XRInteractableSnapVolume>();
         int j = 0;
         int k = 0;
-        Debug.Log(allComponents.Length);
+        //Debug.Log(allComponents.Length);
         for(int i = 0; i<allComponents.Length; i++){
 
             if(i%2 == 0){
