@@ -105,11 +105,13 @@ public class Hide : MonoBehaviour
             {
                 child.gameObject.GetComponent<MeshRenderer>().enabled = true;
                 child.Find("API_ID").gameObject.SetActive(true);
+                child.Find("Delete").gameObject.SetActive(true);
             }
             else if (child.name.StartsWith("Hitbox") & PlayerPrefs.GetInt("IsLogedIn") == 0)
             {
                 child.gameObject.GetComponent<MeshRenderer>().enabled = false;
                 child.Find("API_ID").gameObject.SetActive(false);
+                child.Find("Delete").gameObject.SetActive(false);
             }
         }
 

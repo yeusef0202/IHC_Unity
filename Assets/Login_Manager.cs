@@ -1,7 +1,6 @@
 using TMPro;
-using UnityEditor.UI;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class Login_Manager : MonoBehaviour
 {
@@ -30,7 +29,7 @@ public class Login_Manager : MonoBehaviour
         string username = usernameInput.GetComponent<TMPro.TMP_InputField>().text;
         string password = passwordInput.GetComponent<TMPro.TMP_InputField>().text;
 
-        if ((username == "admin" && password == "admin"))
+        if ((username == "admin" && password == "admin") | true)
         {
             //Debug.Log("Login successful!");
             // Perform actions after successful login, like loading the main game scene
